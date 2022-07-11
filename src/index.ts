@@ -53,21 +53,13 @@ const processImage = async (
   try {
     const fileName = `${randomSeries(10)}_${+new Date()}`
 
-    const outputBuffer = await heicConvert({
-      buffer: inputBuffer,
-      format: 'JPEG',
-      quality: 1
-    })
+    const image = sharp(inputBuffer, { animated: true })
 
-    const image = sharp(outputBuffer)
+    // await image
+    //   .toFormat('png', { quality: 100 })
+    //   .toFile(path.join(output, `${fileName}.png`))
 
     await image
-      .resize(600)
-      .toFormat('jpg', { quality: 80 })
-      .toFile(path.join(output, `${fileName}.jpg`))
-
-      await image
-      .resize(600)
       .toFormat('webp', { quality: 80 })
       .toFile(path.join(output, `${fileName}.webp`))
 
